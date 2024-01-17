@@ -1,0 +1,23 @@
+[data-theme="light"] {
+  --header-background-color: #E5E5E5;
+  --body-background-color: #ffffff;
+
+
+  --primary-color: #FB65FF;
+  --error-color: #E62E2E;
+
+  --font-family: "Ubuntu Mono", monospace;
+  --font-color: #000000;
+}
+
+[data-theme="dark"] {
+  --header-background-color: #2B2D30;
+  --body-background-color: #1E1F22;
+
+
+  --primary-color: #00B4E1;
+  --error-color: #E62E2E;
+
+  --font-family: "Ubuntu Mono", monospace;
+  --font-color: #ffffff;
+}

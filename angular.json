@@ -30,7 +30,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []
           },
@@ -68,6 +71,11 @@
               "buildTarget": "webporfolio:build:development"
             }
           },
+          "options": {
+            "browserTarget": "webporfolio:build",
+            "port": 4200,
+            "host": "0.0.0.0"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -97,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

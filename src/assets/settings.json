@@ -1,0 +1,13 @@
+{
+  "global": {
+    "site_name": "medovyha.me"
+  },
+  "terminal": {
+    "username": "medovyha.me",
+    "symbol": ":$",
+    "cursor": "|"
+  },
+  "design": {
+    "parent": "#parent"
+  }
+}

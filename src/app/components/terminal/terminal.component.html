@@ -1,0 +1,30 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=contain">
+</head>
+<app-header></app-header>
+<div class="content">
+
+  <div [id]="settings.design.parent.replace('#','')" style="white-space: pre;">
+
+  </div>
+
+  <div class="terminal-input" (click)="openKeyboard()">
+    <span style="color: var(--primary-color); font-weight: bold;">{{name}}</span>{{settings.terminal.symbol}}
+    <span class="inp">{{message}}</span>
+    <span class="caret-underscore">{{settings.terminal.cursor}}</span>
+  </div>
+
+  <div class="keyboard-input" *ngIf="isMobile || isTablet ">
+    <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" *ngIf="!isKeyboardOpen" (onClick)="isKeyboardOpen=!isKeyboardOpen"></p-button>
+
+    <p-inputGroup *ngIf="isKeyboardOpen">
+      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage"/>
+      <button type="button" pButton label="Enter" (click)="onEnter(mobileMessage)"></button>
+    </p-inputGroup>
+  </div>
+  <div class="bottom" id="bottom">
+    <br>
+  </div>
+</div>
+
+
