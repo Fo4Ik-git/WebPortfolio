@@ -7,7 +7,7 @@
 
   <div class="terminal-input" (click)="openKeyboard()">
     <span style="color: var(--primary-color); font-weight: bold;">{{name}}</span>{{settings.terminal.symbol}}
-    <span class="inp">{{message}}</span>
+    <span class="inp">{{sharedData.message}}</span>
     <span class="caret-underscore">{{settings.terminal.cursor}}</span>
   </div>
 
@@ -15,7 +15,7 @@
     <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" *ngIf="!isKeyboardOpen" (onClick)="isKeyboardOpen=!isKeyboardOpen"></p-button>
 
     <p-inputGroup *ngIf="isKeyboardOpen">
-      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage"/>
+      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage" />
       <button type="button" pButton label="Enter" (click)="onEnter(mobileMessage)"></button>
     </p-inputGroup>
   </div>
