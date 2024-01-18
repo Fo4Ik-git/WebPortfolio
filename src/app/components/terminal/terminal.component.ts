@@ -197,7 +197,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
   }
 
 
-  addPreviousCommand(message: string, renderer: Renderer2, el: ElementRef): void {
+  addPreviousCommand(message: string): void {
     let text = `<span style="color: var(--primary-color);">${this.name}</span>${this.settings.terminal.symbol} ${message}`;
     const divElement = this.renderer.createElement('div');
 
