@@ -111,6 +111,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
                 break;
             }
             case 'Tab': {
+                event.preventDefault();
                 let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
                 if (bestMatch) {
                     this.message = bestMatch;
