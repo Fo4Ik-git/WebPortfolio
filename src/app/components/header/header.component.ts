@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import * as jsonData from "../../../assets/settings.json";
+import * as jsonData from "../../config/settings.json";
 @Component({
   selector: 'app-header',
   standalone: true,

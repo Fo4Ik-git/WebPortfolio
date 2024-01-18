@@ -1,8 +1,14 @@
-import {ElementRef, Renderer2} from "@angular/core";
-import * as jsonData from "../../../../assets/settings.json";
+import {Component, ElementRef, Renderer2} from '@angular/core';
+import * as jsonData from "../../../config/settings.json";
 
-export class Help {
-
+@Component({
+  selector: 'app-helpc',
+  standalone: true,
+  imports: [],
+  templateUrl: './help.component.html',
+  styleUrl: './help.component.scss'
+})
+export class HelpComponent {
   settings: any = (jsonData as any).default;
 
   addDivToInputGroup(renderer: Renderer2, el: ElementRef): void {
@@ -18,4 +24,5 @@ export class Help {
     renderer.appendChild(el.nativeElement.querySelector(this.settings.design.parent), divElement);
     // renderer.appendChild(el.nativeElement.getElementById(this.settings.design.parent), divElement);
   }
+
 }

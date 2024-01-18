@@ -1,6 +1,6 @@
 import {ElementRef, Renderer2} from "@angular/core";
-import * as jsonData from "../../../../assets/settings.json";
-import {TerminalComponent} from "../terminal.component";
+import * as jsonData from "../../config/settings.json";
+import {TerminalComponent} from "../terminal/terminal.component";
 
 export class ChangeTheme {
 

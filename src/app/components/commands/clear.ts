@@ -1,5 +1,5 @@
 import {ElementRef, Renderer2} from "@angular/core";
-import * as jsonData from "../../../../assets/settings.json";
+import * as jsonData from "../../config/settings.json";
 export class Clear {
 
   settings: any = (jsonData as any).default;
