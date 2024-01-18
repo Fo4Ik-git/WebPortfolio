@@ -8,7 +8,8 @@ import {
   Renderer2,
   ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../config/settings.json";
+import * as settings from "../../config/settings.json";
+import * as commands from "../../config/commands.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -19,6 +20,8 @@ import {NgIf} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
 import {TranslateService} from "@ngx-translate/core";
 import {AutocompleteService} from "../../services/autocomplete.service";
+import {SharedDataService} from "../../services/shared-data.service";
+import {HistoryService} from "../../services/history.service";
 
 
 @Component({
@@ -37,14 +40,11 @@ import {AutocompleteService} from "../../services/autocomplete.service";
 })
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
-  message: string = '';
   mobileMessage: string = '';
-  settings: any = (jsonData as any).default;
+  settings: any = (settings as any).default;
+  commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
   name = this.settings.terminal.username;
-  logic: Logic = new Logic(this.translate);
-  commands = ['help', 'clear', 'change-theme', 'about-me'];
-  history: string[] = ['about-me', 'test', ''];
-  currentHistoryIndex = 1;
+  logic: Logic = new Logic(this.translate, this.sharedData);
 
   isKeyboardOpen: boolean = false;
   isMobile!: boolean;
@@ -76,8 +76,10 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private deviceService: DeviceDetectorService,
               private translate: TranslateService,
               private el: ElementRef,
+              public sharedData: SharedDataService,
               private autocompleteService: AutocompleteService,
-              private viewRef: ViewContainerRef) {
+              private viewRef: ViewContainerRef,
+              private history: HistoryService) {
     translate.setDefaultLang('en');
     try {
       translate.use(navigator.language.split('-')[0]);
@@ -100,90 +102,54 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.code);
-
     // console.log(event);
     switch (event.code) {
       case 'Backspace': {
-        this.message = this.message.slice(0, -1);
-        this.history.pop()
-        this.history.push(this.message)
-        this.currentHistoryIndex = 1;
+        this.sharedData.message = this.sharedData.message.slice(0, -1);
+        this.history.push(this.sharedData.message)
         break;
       }
       case 'Enter': {
-        if (this.message != '') {
-          if(this.currentHistoryIndex != 1){
-            this.currentHistoryIndex = 1;
-            this.history.pop()
-            this.history.push(this.message);
-          }
-          this.history.push('');
-        }
-        this.onEnter(this.message);
+        if (this.sharedData.message != '') {
+          this.history.enter(this.sharedData.message)}
+        this.onEnter(this.sharedData.message);
         break;
       }
       case 'Tab': {
         event.preventDefault();
-        let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
+        let bestMatch = this.autocompleteService.findBestMatch(this.sharedData.message, this.commands);
         if (bestMatch) {
-          this.message = bestMatch;
-          this.history.pop()
-          this.history.push(this.message)
-          this.currentHistoryIndex = 1;
+          this.sharedData.message = bestMatch;
+          this.history.push(this.sharedData.message)
         }
         break;
       }
       case 'ArrowUp': {
         event.preventDefault();
-        let nextHistoryCommand = this.history.at(-1 * this.currentHistoryIndex - 1)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex += 1;
-          console.log(this.currentHistoryIndex)
-          console.log(this.history[this.currentHistoryIndex])
-          this.message = nextHistoryCommand;
-        }
+        this.sharedData.message = this.history.arrowUp();
         break
       }
       case 'ArrowDown': {
         event.preventDefault();
-        console.log(this.currentHistoryIndex)
-        if (this.currentHistoryIndex == 1) {
-          break;
-        }
-        let nextHistoryCommand = this.history.at(-this.currentHistoryIndex + 1)
-        console.log(-this.currentHistoryIndex)
-        console.log(this.history);
-        console.log(nextHistoryCommand)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex -= 1;
-          console.log(this.currentHistoryIndex)
-          this.message = nextHistoryCommand;
-        }
+        this.sharedData.message = this.history.arrowDown();
         break
       }
       case 'Escape': {
-        this.message = '';
+        this.sharedData.message = '';
         break;
       }
       case 'Space': {
-        this.message += ' ';
-        this.history.pop()
-        this.history.push(this.message)
-        this.currentHistoryIndex = 1;
+        this.sharedData.message += ' ';
+        this.history.push(this.sharedData.message)
         break;
       }
       default: {
         if (event.code.startsWith("Key") || event.code.startsWith("Digit") || event.code === "Minus") {
-          this.message += event.key;
-          this.history.pop()
-          this.history.push(this.message)
-          this.currentHistoryIndex = 1;
+          this.sharedData.message += event.key;
+          this.history.push(this.sharedData.message)
         }
       }
     }
-    console.log("enh: " + this.history);
-    console.log("eni: " + this.currentHistoryIndex);
     this.checkAndSetScroll();
   }
 
@@ -192,7 +158,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
     this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
 
-    this.message = '';
+    this.sharedData.message = '';
     this.mobileMessage = '';
   }
 

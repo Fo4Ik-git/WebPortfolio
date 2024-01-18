@@ -1,0 +1,12 @@
+.command {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: .1rem;
+}
+
+.command:hover {
+  border: 2px solid var(--primary-color);
+  padding: .1rem;
+  border-radius: 5px;
+}
