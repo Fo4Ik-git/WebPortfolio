@@ -1,4 +1,4 @@
-import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, Renderer2, ViewContainerRef} from '@angular/core';
 import * as jsonData from "../../../config/settings.json";
 
 @Component({
@@ -11,18 +11,10 @@ import * as jsonData from "../../../config/settings.json";
 export class HelpComponent {
   settings: any = (jsonData as any).default;
 
-  addDivToInputGroup(renderer: Renderer2, el: ElementRef): void {
-    const text = 'Вы кто такие, Я вас не звал, Идите нахуй!';
-    //TODO add help
+  addDivToInputGroup(viewRef: ViewContainerRef, renderer: Renderer2, el: ElementRef): void {
+    const compRef = viewRef.createComponent(HelpComponent)
+    renderer.appendChild(el.nativeElement.querySelector(this.settings.design.parent), compRef.location.nativeElement);
 
-    const divElement = renderer.createElement('div');
-    divElement.className = 'help';
-    const textNode = renderer.createText(text);
-
-
-    renderer.appendChild(divElement, textNode);
-    renderer.appendChild(el.nativeElement.querySelector(this.settings.design.parent), divElement);
-    // renderer.appendChild(el.nativeElement.getElementById(this.settings.design.parent), divElement);
   }
 
 }
