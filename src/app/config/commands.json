@@ -1,0 +1,10 @@
+[
+  {
+    "command": "help",
+    "description": "help.description"
+  },
+  {
+    "command": "clear",
+    "description": "clear.description"
+  }
+]

@@ -1,1 +1,6 @@
-<p i18n="hello"></p>
+<div>
+  <div *ngFor="let item of commands">
+    <p>{{ item.command }} - {{ item.description | translate }}</p>
+  </div>
+</div>
+

@@ -1,3 +1,5 @@
 {
-  "hello" : "Hello"
+  "hello" : "Hello",
+  "help.description" : "Help Description",
+  "clear.description" : "Clear Description"
 }
