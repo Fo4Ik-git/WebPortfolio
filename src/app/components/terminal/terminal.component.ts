@@ -8,7 +8,7 @@ import {
   OnInit,
   Renderer2, ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../../assets/settings.json";
+import * as jsonData from "../../config/settings.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -17,6 +17,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {NgIf} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
+import {AutocompleteService} from "../../services/autocomplete.service";
 import {TranslateService} from "@ngx-translate/core";
 
 
@@ -41,6 +42,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
   settings: any = (jsonData as any).default;
   name = this.settings.terminal.username;
   logic: Logic = new Logic(this.translate);
+  commands=['help', 'clear', 'change-theme', 'about-me'];
 
   isKeyboardOpen: boolean = false;
   isMobile!: boolean;
@@ -71,10 +73,8 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private deviceService: DeviceDetectorService,
               private translate: TranslateService,
               private el: ElementRef,
-              private viewRef: ViewContainerRef) {
-
-    translate.setDefaultLang('en');
-    translate.use(navigator.language);
+              private viewRef: ViewContainerRef,
+              private autocompleteService: AutocompleteService) {
   }
 
 
@@ -104,6 +104,13 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
         this.onEnter(this.message);
         break;
       }
+      case 'Tab': {
+        let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
+        if (bestMatch) {
+          this.message = bestMatch;
+        }
+        break;
+      }
       case 'Space': {
         this.message += ' ';
         break;
@@ -114,7 +121,6 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
         }
       }
     }
-
     this.checkAndSetScroll();
   }
 
