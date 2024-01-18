@@ -1,13 +1,5 @@
-import {
-  AfterViewChecked,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  Renderer2
-} from '@angular/core';
-import * as jsonData from "../../../assets/settings.json";
+import {AfterViewChecked, Component, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
+import * as jsonData from "../../config/settings.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -59,8 +51,6 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     this.checkAndSetScroll();
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
-    console.log(vh);
-
   }
 
   constructor(private renderer: Renderer2,
@@ -73,7 +63,6 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     let trigger = this.el.nativeElement.querySelector('.inp');
     trigger.focus();
   }
-
 
 
   checkAndSetScroll() {
@@ -106,7 +95,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onEnter(message: string){
+  onEnter(message: string) {
     this.addPreviousCommand(message, this.renderer, this.el);
 
     this.logic.onEnterKey(message, this.renderer, this.el);

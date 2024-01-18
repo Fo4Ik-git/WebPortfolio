@@ -1,14 +1,14 @@
 import {ElementRef, Renderer2} from "@angular/core";
-import {Help} from "./commands/help";
-import {Error} from "./commands/error";
-import {Clear} from "./commands/clear";
-import {ChangeTheme} from "./commands/change-theme";
+import {Error} from "../commands/error";
+import {Clear} from "../commands/clear";
+import {ChangeTheme} from "../commands/change-theme";
+import {HelpComponent} from "../commands/help/help.component";
 
 
 
 export class Logic {
 
-  help: Help = new Help();
+  help: HelpComponent = new HelpComponent();
   error: Error = new Error();
   clear: Clear = new Clear();
   changeTheme: ChangeTheme = new ChangeTheme();
