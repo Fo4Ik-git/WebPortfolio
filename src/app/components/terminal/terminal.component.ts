@@ -1,14 +1,14 @@
 import {
   AfterViewChecked,
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   OnInit,
-  Renderer2, ViewContainerRef
+  Renderer2,
+  ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../../assets/settings.json";
+import * as jsonData from "../../config/settings.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -63,7 +63,8 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   }
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.onEnter("about-me");
   }
 
@@ -72,9 +73,12 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private translate: TranslateService,
               private el: ElementRef,
               private viewRef: ViewContainerRef) {
-
-    translate.setDefaultLang('en');
-    translate.use(navigator.language);
+      translate.setDefaultLang('en');
+      try {
+          translate.use(navigator.language.split('-')[0]);
+      } catch (e) {
+          translate.use('en');
+      }
   }
 
 
@@ -82,7 +86,6 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
     let trigger = this.el.nativeElement.querySelector('.inp');
     trigger.focus();
   }
-
 
 
   checkAndSetScroll() {
@@ -118,7 +121,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.checkAndSetScroll();
   }
 
-  onEnter(message: string){
+  onEnter(message: string) {
     this.addPreviousCommand(message, this.renderer, this.el);
 
     this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
