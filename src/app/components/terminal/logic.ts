@@ -6,7 +6,6 @@ import {HelpComponent} from "../commands/help/help.component";
 import {AboutMeComponent} from "../commands/about-me/about-me.component";
 
 
-
 export class Logic {
 
   help: HelpComponent = new HelpComponent();
@@ -15,10 +14,10 @@ export class Logic {
   changeTheme: ChangeTheme = new ChangeTheme();
   aboutMe: AboutMeComponent = new AboutMeComponent();
 
-  onEnterKey(message: string, renderer: Renderer2, el: ElementRef, viewRef: ViewContainerRef){
+  onEnterKey(message: string, renderer: Renderer2, el: ElementRef, viewRef: ViewContainerRef) {
     switch (message) {
       case 'help': {
-        this.help.addDivToInputGroup(renderer, el);
+        this.help.addDivToInputGroup(viewRef, renderer, el);
         break;
       }
       case 'clear': {
