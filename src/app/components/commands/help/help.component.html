@@ -1,6 +1,9 @@
 <div>
   <div *ngFor="let item of commands">
-    <span>{{ item.command }} - {{ item.description | translate }}</span>
+    <div>
+      <span class="command" (click)="enterCommand(item.command)">{{ item.command }}</span>
+      - {{ item.description | translate }}
+    </div>
   </div>
 </div>
 

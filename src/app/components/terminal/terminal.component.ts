@@ -19,6 +19,7 @@ import {NgIf} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
 import {TranslateService} from "@ngx-translate/core";
 import {AutocompleteService} from "../../services/autocomplete.service";
+import {SharedDataService} from "../../services/shared-data.service";
 
 
 @Component({
@@ -37,11 +38,10 @@ import {AutocompleteService} from "../../services/autocomplete.service";
 })
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
-  message: string = '';
   mobileMessage: string = '';
   settings: any = (jsonData as any).default;
   name = this.settings.terminal.username;
-  logic: Logic = new Logic(this.translate);
+  logic: Logic = new Logic(this.translate, this.sharedData);
   commands = ['help', 'clear', 'change-theme', 'about-me'];
   history: string[] = ['about-me', 'test', ''];
   currentHistoryIndex = 1;
@@ -76,6 +76,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private deviceService: DeviceDetectorService,
               private translate: TranslateService,
               private el: ElementRef,
+              public sharedData: SharedDataService,
               private autocompleteService: AutocompleteService,
               private viewRef: ViewContainerRef) {
     translate.setDefaultLang('en');
@@ -100,36 +101,34 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.code);
-
     // console.log(event);
     switch (event.code) {
       case 'Backspace': {
-        this.message = this.message.slice(0, -1);
+        this.sharedData.message = this.sharedData.message.slice(0, -1);
         this.history.pop()
-        this.history.push(this.message)
+        this.history.push(this.sharedData.message)
         this.currentHistoryIndex = 1;
         break;
       }
       case 'Enter': {
-        if (this.message != '') {
-          if(this.currentHistoryIndex != 1){
+        if (this.sharedData.message != '') {
+          if (this.currentHistoryIndex != 1) {
             this.currentHistoryIndex = 1;
             this.history.pop()
-            this.history.push(this.message);
+            this.history.push(this.sharedData.message);
           }
           this.history.push('');
         }
-        this.onEnter(this.message);
+        this.onEnter(this.sharedData.message);
         break;
       }
       case 'Tab': {
         event.preventDefault();
-        let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
+        let bestMatch = this.autocompleteService.findBestMatch(this.sharedData.message, this.commands);
         if (bestMatch) {
-          this.message = bestMatch;
+          this.sharedData.message = bestMatch;
           this.history.pop()
-          this.history.push(this.message)
+          this.history.push(this.sharedData.message)
           this.currentHistoryIndex = 1;
         }
         break;
@@ -141,7 +140,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
           this.currentHistoryIndex += 1;
           console.log(this.currentHistoryIndex)
           console.log(this.history[this.currentHistoryIndex])
-          this.message = nextHistoryCommand;
+          this.sharedData.message = nextHistoryCommand;
         }
         break
       }
@@ -158,32 +157,30 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
         if (nextHistoryCommand != undefined) {
           this.currentHistoryIndex -= 1;
           console.log(this.currentHistoryIndex)
-          this.message = nextHistoryCommand;
+          this.sharedData.message = nextHistoryCommand;
         }
         break
       }
       case 'Escape': {
-        this.message = '';
+        this.sharedData.message = '';
         break;
       }
       case 'Space': {
-        this.message += ' ';
+        this.sharedData.message += ' ';
         this.history.pop()
-        this.history.push(this.message)
+        this.history.push(this.sharedData.message)
         this.currentHistoryIndex = 1;
         break;
       }
       default: {
         if (event.code.startsWith("Key") || event.code.startsWith("Digit") || event.code === "Minus") {
-          this.message += event.key;
+          this.sharedData.message += event.key;
           this.history.pop()
-          this.history.push(this.message)
+          this.history.push(this.sharedData.message)
           this.currentHistoryIndex = 1;
         }
       }
     }
-    console.log("enh: " + this.history);
-    console.log("eni: " + this.currentHistoryIndex);
     this.checkAndSetScroll();
   }
 
@@ -192,7 +189,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
     this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
 
-    this.message = '';
+    this.sharedData.message = '';
     this.mobileMessage = '';
   }
 
