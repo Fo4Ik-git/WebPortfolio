@@ -1,3 +1,4 @@
+<!--
 <div class="card mb-3" style="max-width: 70%;">
   <div class="row g-0" style="height: 100%">
 
@@ -13,20 +14,14 @@
         </p>
         <div class="container text-center">
           <div class="row">
-            <div class="col">
-              <a href="https://github.com/Medovyha" class="text-decoration-none d-flex align-items-center justify-content-center">
+            <div class="col" *ngFor="let link of settings.user.links">
+              <a [href]="link.url"
+                 class="text-decoration-none d-flex align-items-center justify-content-center">
                 <div class="link d-flex">
-                  <span><i class="pi pi-github" style="font-size: 1rem; margin-right: 5px;"></i></span>
-                  <span class="d-block">GitHub</span>
-                </div>
-              </a>
-            </div>
-
-            <div class="col">
-              <a href="https://www.linkedin.com/in/maksym-donchyk-b6674b216/" class="text-decoration-none d-flex align-items-center justify-content-center">
-                <div class="link d-flex">
-                  <span><i class="pi pi-linkedin" style="font-size: 1rem; margin-right: 5px;"></i></span>
-                  <span class="d-block">LinkedIn</span>
+                  <span>
+                    <i [class]="link.icon" style="font-size: 1rem; margin-right: 5px;"></i>
+                  </span>
+                  <span class="d-block">{{link.name}}</span>
                 </div>
               </a>
             </div>
@@ -38,8 +33,59 @@
     </div>
 
     <div class="col-md-4 avatar d-flex align-items-center">
-      <img src="/assets/img/me.jpg" class="mx-auto" alt="...">
+      <img [src]="settings.user.imgPath" class="mx-auto" alt="...">
     </div>
 
   </div>
 </div>
+-->
+
+<div class="content">
+  <div class="row">
+    <section class="col-12 d-block d-lg-none" id="image-mobile">
+      <div class="avatar d-flex align-items-center">
+        <img [src]="settings.user.imgPath" class="mx-auto img-fluid" alt="...">
+      </div>
+    </section>
+
+    <section class="col-12 col-lg-8">
+      <div class="row justify-content-center align-items-center h-100">
+        <section class="col-12" id="text">
+          <h5 class="name">{{settings.user.name | translate}}</h5>
+          <p class="description text-truncate">
+            Pythom Developer with real experience<br/>
+            Java senior developer<br/>
+            Mom's lover<br/>
+            ur bff<br/>
+          </p>
+        </section>
+        <section class="col-12 col-lg-12 align-items-center justify-content-center" id="links">
+          <div class="row ">
+            <div *ngFor="let link of settings.user.links"
+                 class="col-12 col-sm-4 col-lg-3 d-flex justify-content-center">
+              <a [href]="link.url" class="text-decoration-none d-flex">
+                <div class="link d-flex">
+                  <span>
+                    <i [class]="link.icon" style="font-size: 1rem; margin-right: 5px;"></i>
+                  </span>
+                  <span class="d-block">{{link.name}}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+
+      </div>
+    </section>
+
+    <section class="col-4 d-none d-lg-block" id="image">
+      <div class="avatar d-flex align-items-center">
+        <img [src]="settings.user.imgPath" class="mx-auto img-fluid" alt="...">
+      </div>
+    </section>
+  </div>
+</div>
+
+
+
