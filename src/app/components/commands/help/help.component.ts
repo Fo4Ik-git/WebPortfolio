@@ -25,7 +25,7 @@ export class HelpComponent {
 
 
   constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en');
+    // translate.setDefaultLang('en');
   }
 
 

@@ -17,21 +17,23 @@ app-terminal {
 
 
 }
-::-webkit-scrollbar {
-  width: 12px;
-}
 
-::-webkit-scrollbar-track {
-  background-color: var(--header-background-color);
-}
+@media screen and (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--body-background-color);
-  border-radius: 6px;
-  border: 1px solid var(--primary-color);
-}
+  ::-webkit-scrollbar-track {
+    background-color: var(--header-background-color);
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--body-background-color);
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+  }
 
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
 }

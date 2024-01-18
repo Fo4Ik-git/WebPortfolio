@@ -1,5 +1,6 @@
 {
-  "hello" : "Hello",
-  "help.description" : "Help Description",
-  "clear.description" : "Clear Description"
+  "hello": "Hello",
+  "help.description": "Help Description",
+  "clear.description": "Clear Description",
+  "user.name": "User Name"
 }

@@ -13,7 +13,7 @@ export class Logic {
   error: Error = new Error();
   clear: Clear = new Clear();
   changeTheme: ChangeTheme = new ChangeTheme();
-  aboutMe: AboutMeComponent = new AboutMeComponent();
+  aboutMe: AboutMeComponent = new AboutMeComponent(this.translate);
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('en');
