@@ -1,12 +1,12 @@
 import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  Renderer2,
-  ViewContainerRef
+    AfterViewChecked,
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostListener,
+    OnInit,
+    Renderer2,
+    ViewContainerRef
 } from '@angular/core';
 import * as jsonData from "../../config/settings.json";
 import {Logic} from "./logic";
@@ -22,191 +22,134 @@ import {AutocompleteService} from "../../services/autocomplete.service";
 
 
 @Component({
-  selector: 'app-terminal',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ButtonModule,
-    InputGroupModule,
-    InputTextModule,
-    NgIf,
-    HeaderComponent
-  ],
-  templateUrl: './terminal.component.html',
-  styleUrl: './terminal.component.scss'
+    selector: 'app-terminal',
+    standalone: true,
+    imports: [
+        FormsModule,
+        ButtonModule,
+        InputGroupModule,
+        InputTextModule,
+        NgIf,
+        HeaderComponent
+    ],
+    templateUrl: './terminal.component.html',
+    styleUrl: './terminal.component.scss'
 })
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
-  public static isLightTheme = false;
-  message: string = '';
-  mobileMessage: string = '';
-  settings: any = (jsonData as any).default;
-  name = this.settings.terminal.username;
-  logic: Logic = new Logic(this.translate);
-  commands = ['help', 'clear', 'change-theme', 'about-me'];
-  history: string[] = ['about-me', 'test', ''];
-  currentHistoryIndex = 1;
+    public static isLightTheme = false;
+    message: string = '';
+    mobileMessage: string = '';
+    settings: any = (jsonData as any).default;
+    name = this.settings.terminal.username;
+    logic: Logic = new Logic(this.translate);
+    commands = ['help', 'clear', 'change-theme', 'about-me'];
 
-  isKeyboardOpen: boolean = false;
-  isMobile!: boolean;
-  isTablet!: boolean;
+    isKeyboardOpen: boolean = false;
+    isMobile!: boolean;
+    isTablet!: boolean;
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
-    document.body.setAttribute(
-      'data-theme',
-      TerminalComponent.isLightTheme ? 'light' : 'dark'
-    );
-    this.isMobile = this.deviceService.isMobile();
-    this.isTablet = this.deviceService.isTablet();
+        document.body.setAttribute(
+            'data-theme',
+            TerminalComponent.isLightTheme ? 'light' : 'dark'
+        );
+        this.isMobile = this.deviceService.isMobile();
+        this.isTablet = this.deviceService.isTablet();
 
 
-  }
-
-  ngAfterViewChecked() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-  }
-
-  ngAfterViewInit() {
-    this.onEnter("about-me");
-  }
-
-  constructor(private renderer: Renderer2,
-              private deviceService: DeviceDetectorService,
-              private translate: TranslateService,
-              private el: ElementRef,
-              private autocompleteService: AutocompleteService,
-              private viewRef: ViewContainerRef) {
-    translate.setDefaultLang('en');
-    try {
-      translate.use(navigator.language.split('-')[0]);
-    } catch (e) {
-      translate.use('en');
     }
-  }
 
+    ngAfterViewChecked() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-  openKeyboard() {
-    let trigger = this.el.nativeElement.querySelector('.inp');
-    trigger.focus();
-  }
+    }
 
+    ngAfterViewInit() {
+        this.onEnter("about-me");
+    }
 
-  checkAndSetScroll() {
-    let terminalInput = this.el.nativeElement.querySelector('#bottom');
-    terminalInput.scrollIntoView({block: "end"});
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.code);
-
-    // console.log(event);
-    switch (event.code) {
-      case 'Backspace': {
-        this.message = this.message.slice(0, -1);
-        this.history.pop()
-        this.history.push(this.message)
-        this.currentHistoryIndex = 1;
-        break;
-      }
-      case 'Enter': {
-        if (this.message != '') {
-          if(this.currentHistoryIndex != 1){
-            this.currentHistoryIndex = 1;
-            this.history.pop()
-            this.history.push(this.message);
-          }
-          this.history.push('');
+    constructor(private renderer: Renderer2,
+                private deviceService: DeviceDetectorService,
+                private translate: TranslateService,
+                private el: ElementRef,
+                private autocompleteService: AutocompleteService,
+                private viewRef: ViewContainerRef) {
+        translate.setDefaultLang('en');
+        try {
+            translate.use(navigator.language.split('-')[0]);
+        } catch (e) {
+            translate.use('en');
         }
-        this.onEnter(this.message);
-        break;
-      }
-      case 'Tab': {
-        event.preventDefault();
-        let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
-        if (bestMatch) {
-          this.message = bestMatch;
-          this.history.pop()
-          this.history.push(this.message)
-          this.currentHistoryIndex = 1;
+    }
+
+
+    openKeyboard() {
+        let trigger = this.el.nativeElement.querySelector('.inp');
+        trigger.focus();
+    }
+
+
+    checkAndSetScroll() {
+        let terminalInput = this.el.nativeElement.querySelector('#bottom');
+        terminalInput.scrollIntoView({block: "end"});
+    }
+
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        // console.log(event.code);
+
+        // console.log(event);
+        switch (event.code) {
+            case 'Backspace': {
+                this.message = this.message.slice(0, -1);
+                break;
+            }
+            case 'Enter': {
+                this.onEnter(this.message);
+                break;
+            }
+            case 'Tab': {
+                let bestMatch = this.autocompleteService.findBestMatch(this.message, this.commands);
+                if (bestMatch) {
+                    this.message = bestMatch;
+                }
+                break;
+            }
+            case 'Space': {
+                this.message += ' ';
+                break;
+            }
+            default: {
+                if (event.code.startsWith("Key") || event.code.startsWith("Digit") || event.code === "Minus") {
+                    this.message += event.key;
+                }
+            }
         }
-        break;
-      }
-      case 'ArrowUp': {
-        event.preventDefault();
-        let nextHistoryCommand = this.history.at(-1 * this.currentHistoryIndex - 1)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex += 1;
-          console.log(this.currentHistoryIndex)
-          console.log(this.history[this.currentHistoryIndex])
-          this.message = nextHistoryCommand;
-        }
-        break
-      }
-      case 'ArrowDown': {
-        event.preventDefault();
-        console.log(this.currentHistoryIndex)
-        if (this.currentHistoryIndex == 1) {
-          break;
-        }
-        let nextHistoryCommand = this.history.at(-this.currentHistoryIndex + 1)
-        console.log(-this.currentHistoryIndex)
-        console.log(this.history);
-        console.log(nextHistoryCommand)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex -= 1;
-          console.log(this.currentHistoryIndex)
-          this.message = nextHistoryCommand;
-        }
-        break
-      }
-      case 'Escape': {
+        this.checkAndSetScroll();
+    }
+
+    onEnter(message: string) {
+        this.addPreviousCommand(message, this.renderer, this.el);
+
+        this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
+
         this.message = '';
-        break;
-      }
-      case 'Space': {
-        this.message += ' ';
-        this.history.pop()
-        this.history.push(this.message)
-        this.currentHistoryIndex = 1;
-        break;
-      }
-      default: {
-        if (event.code.startsWith("Key") || event.code.startsWith("Digit") || event.code === "Minus") {
-          this.message += event.key;
-          this.history.pop()
-          this.history.push(this.message)
-          this.currentHistoryIndex = 1;
-        }
-      }
+        this.mobileMessage = '';
     }
-    console.log("enh: " + this.history);
-    console.log("eni: " + this.currentHistoryIndex);
-    this.checkAndSetScroll();
-  }
-
-  onEnter(message: string) {
-    this.addPreviousCommand(message, this.renderer, this.el);
-
-    this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
-
-    this.message = '';
-    this.mobileMessage = '';
-  }
 
 
-  addPreviousCommand(message: string): void {
-    let text = `<span style="color: var(--primary-color);">${this.name}</span>${this.settings.terminal.symbol} ${message}`;
-    const divElement = this.renderer.createElement('div');
+    addPreviousCommand(message: string, renderer: Renderer2, el: ElementRef): void {
+        let text = `<span style="color: var(--primary-color);">${this.name}</span>${this.settings.terminal.symbol} ${message}`;
+        const divElement = this.renderer.createElement('div');
 
-    divElement.className = 'previous-command';
-    divElement.innerHTML = text;
+        divElement.className = 'previous-command';
+        divElement.innerHTML = text;
 
-    this.renderer.appendChild(this.el.nativeElement.querySelector(this.settings.design.parent), divElement);
-    // this.renderer.appendChild(this.el.nativeElement.getElementById(this.settings.design.parent), divElement);
-  }
+        this.renderer.appendChild(this.el.nativeElement.querySelector(this.settings.design.parent), divElement);
+        // this.renderer.appendChild(this.el.nativeElement.getElementById(this.settings.design.parent), divElement);
+    }
 
 
 }
