@@ -1,5 +1,6 @@
 import {
   AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -32,7 +33,7 @@ import {HeaderComponent} from "../header/header.component";
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.scss'
 })
-export class TerminalComponent implements OnInit, AfterViewChecked {
+export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
   message: string = '';
   mobileMessage: string = '';
@@ -53,12 +54,16 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
 
+
   }
 
   ngAfterViewChecked() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 
+  }
+  ngAfterViewInit(){
+    this.onEnter("about-me");
   }
 
   constructor(private renderer: Renderer2,
