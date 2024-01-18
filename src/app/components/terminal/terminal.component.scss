@@ -1,16 +1,7 @@
-.content {
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100 - 57px);
-}
-
 .terminal-input {
   width: 100%;
-  overflow-y: auto;
 }
 
-.bottom {
-  margin-top: 0.3rem;
-}
 
 .inp {
   border: none;
@@ -79,3 +70,5 @@
     opacity: 0;
   }
 }
+
+

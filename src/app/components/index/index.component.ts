@@ -1,14 +1,16 @@
 import {Component} from '@angular/core';
 import {TerminalComponent} from "../terminal/terminal.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [
-    TerminalComponent,
-    TranslateModule
-  ],
+    imports: [
+        TerminalComponent,
+        TranslateModule,
+        HeaderComponent
+    ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
