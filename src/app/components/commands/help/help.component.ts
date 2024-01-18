@@ -1,5 +1,5 @@
 import {Component, ElementRef, Renderer2} from '@angular/core';
-import * as jsonData from "../../config/settings.json";
+import * as jsonData from "../../../config/settings.json";
 
 @Component({
   selector: 'app-helpc',

@@ -1,5 +1,14 @@
-import {AfterViewChecked, Component, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Renderer2,
+  ViewContainerRef
+} from '@angular/core';
 import * as jsonData from "../../config/settings.json";
+
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -25,7 +34,9 @@ import {HeaderComponent} from "../header/header.component";
   styleUrl: './terminal.component.scss'
 })
 export class TerminalComponent implements OnInit, AfterViewChecked {
+
   public static isLightTheme = false;
+
   message: string = '';
   mobileMessage: string = '';
   settings: any = (jsonData as any).default;
@@ -48,14 +59,14 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.checkAndSetScroll();
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
   constructor(private renderer: Renderer2,
               private deviceService: DeviceDetectorService,
-              private el: ElementRef) {
+              private el: ElementRef,
+              private viewRef: ViewContainerRef) {
   }
 
 
@@ -72,8 +83,9 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.code);
-    console.log(event);
+    // console.log(event.code);
+
+    // console.log(event);
     switch (event.code) {
       case 'Backspace': {
         this.message = this.message.slice(0, -1);
@@ -93,12 +105,14 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
         }
       }
     }
+
+    this.checkAndSetScroll();
   }
 
   onEnter(message: string) {
     this.addPreviousCommand(message, this.renderer, this.el);
 
-    this.logic.onEnterKey(message, this.renderer, this.el);
+    this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
 
     this.message = '';
     this.mobileMessage = '';
