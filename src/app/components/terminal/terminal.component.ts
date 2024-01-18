@@ -17,6 +17,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {NgIf} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -41,7 +42,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
   mobileMessage: string = '';
   settings: any = (jsonData as any).default;
   name = this.settings.terminal.username;
-  logic: Logic = new Logic();
+  logic: Logic = new Logic(this.translate);
 
   isKeyboardOpen: boolean = false;
   isMobile!: boolean;
@@ -65,8 +66,12 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
 
   constructor(private renderer: Renderer2,
               private deviceService: DeviceDetectorService,
+              private translate: TranslateService,
               private el: ElementRef,
               private viewRef: ViewContainerRef) {
+
+    translate.setDefaultLang('en');
+    translate.use(navigator.language);
   }
 
 

@@ -4,7 +4,7 @@ import {
     Renderer2,
     ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../../config/settings.json";
+import * as settings from "../../../config/settings.json";
 
 @Component({
     selector: 'app-about-me',
@@ -17,7 +17,7 @@ export class AboutMeComponent {
     constructor() {
     }
 
-    settings: any = (jsonData as any).default;
+    settings: any = (settings as any).default;
 
     addDivToInputGroup(viewRef: ViewContainerRef, renderer: Renderer2, el: ElementRef): void {
         const compRef = viewRef.createComponent(AboutMeComponent)
