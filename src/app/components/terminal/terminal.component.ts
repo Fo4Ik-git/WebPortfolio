@@ -1,14 +1,14 @@
 import {
   AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   OnInit,
-  Renderer2,
-  ViewContainerRef
+  Renderer2, ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../config/settings.json";
-
+import * as jsonData from "../../../assets/settings.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -33,10 +33,8 @@ import {HeaderComponent} from "../header/header.component";
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.scss'
 })
-export class TerminalComponent implements OnInit, AfterViewChecked {
-
+export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
-
   message: string = '';
   mobileMessage: string = '';
   settings: any = (jsonData as any).default;
@@ -56,11 +54,16 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
 
+
   }
 
   ngAfterViewChecked() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+  }
+  ngAfterViewInit(){
+    this.onEnter("about-me");
   }
 
   constructor(private renderer: Renderer2,
@@ -74,6 +77,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     let trigger = this.el.nativeElement.querySelector('.inp');
     trigger.focus();
   }
+
 
 
   checkAndSetScroll() {
@@ -109,7 +113,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked {
     this.checkAndSetScroll();
   }
 
-  onEnter(message: string) {
+  onEnter(message: string){
     this.addPreviousCommand(message, this.renderer, this.el);
 
     this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
