@@ -1,4 +1,4 @@
-
+<base href="/">
 <div class="content ps-2">
 
   <div [id]="settings.design.parent.replace('#','')" style="white-space: pre;">
@@ -12,10 +12,11 @@
   </div>
 
   <div class="keyboard-input" *ngIf="isMobile || isTablet ">
-    <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" *ngIf="!isKeyboardOpen" (onClick)="isKeyboardOpen=!isKeyboardOpen"></p-button>
+    <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" *ngIf="!isKeyboardOpen"
+              (onClick)="isKeyboardOpen=!isKeyboardOpen"></p-button>
 
     <p-inputGroup *ngIf="isKeyboardOpen">
-      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage" />
+      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage"/>
       <button type="button" pButton label="Enter" (click)="onEnter(mobileMessage)"></button>
     </p-inputGroup>
   </div>
