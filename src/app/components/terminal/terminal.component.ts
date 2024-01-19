@@ -70,6 +70,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
   ngAfterViewInit() {
     this.onEnter("about-me");
+    this.sharedData.message = 'help';
   }
 
   constructor(private renderer: Renderer2,

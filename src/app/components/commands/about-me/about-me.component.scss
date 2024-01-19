@@ -63,13 +63,21 @@ img {
   height: 100%;
 }
 
+#text {
+  min-height: min-content;
+  max-width: 100%;
+}
+
 .name {
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin-bottom: .5rem;
 }
 
 .description {
   font-size: 1.2rem;
+  margin-top: .5rem;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  width: min-content;
 }
 
 .img-fluid {
@@ -95,8 +103,13 @@ a {
     max-height: 10rem;
   }
 
+  .description {
+    max-width: 99%;
+    overflow-wrap: break-word;
+  }
   .content {
-    width: 99%;
+    max-width: 99%;
+    height: 100%;
     margin: 0;
   }
 

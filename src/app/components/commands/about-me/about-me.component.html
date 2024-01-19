@@ -50,15 +50,13 @@
 
     <section class="col-12 col-lg-8">
       <div class="row justify-content-center align-items-center h-100">
-        <section class="col-12" id="text">
-          <h5 class="name text-center">{{settings.user.name | translate}}</h5>
-          <p class="description text-truncate ms-5">
-            Pythom Developer with real experience<br/>
-            Java senior developer<br/>
-            Mom's lover<br/>
-            ur bff<br/>
-          </p>
-        </section>
+        <div class="col-12" id="text">
+          <h1 class="name text-center">{{settings.user.name}}</h1>
+          <div class="text-wrap text-center" [innerHtml]="settings.user.description">
+            Kav Developer with real experience<br/>
+            Java developer<br/>
+          </div>
+        </div>
         <section class="col-12 col-lg-12 align-items-center justify-content-center" id="links">
           <div class="row ">
             <div *ngFor="let link of settings.user.links"
