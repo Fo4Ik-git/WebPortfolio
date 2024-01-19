@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import value from "*.json";
-
 @Injectable({
   providedIn: 'root'
 })

@@ -8,7 +8,8 @@ import {
   Renderer2,
   ViewContainerRef
 } from '@angular/core';
-import * as jsonData from "../../config/settings.json";
+import * as settings from "../../config/settings.json";
+import * as commands from "../../config/commands.json";
 import {Logic} from "./logic";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
@@ -20,6 +21,7 @@ import {HeaderComponent} from "../header/header.component";
 import {TranslateService} from "@ngx-translate/core";
 import {AutocompleteService} from "../../services/autocomplete.service";
 import {SharedDataService} from "../../services/shared-data.service";
+import {HistoryService} from "../../services/history.service";
 
 
 @Component({
@@ -39,12 +41,10 @@ import {SharedDataService} from "../../services/shared-data.service";
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
   mobileMessage: string = '';
-  settings: any = (jsonData as any).default;
+  settings: any = (settings as any).default;
+  commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
   name = this.settings.terminal.username;
   logic: Logic = new Logic(this.translate, this.sharedData);
-  commands = ['help', 'clear', 'change-theme', 'about-me'];
-  history: string[] = ['about-me', 'test', ''];
-  currentHistoryIndex = 1;
 
   isKeyboardOpen: boolean = false;
   isMobile!: boolean;
@@ -78,7 +78,8 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private el: ElementRef,
               public sharedData: SharedDataService,
               private autocompleteService: AutocompleteService,
-              private viewRef: ViewContainerRef) {
+              private viewRef: ViewContainerRef,
+              private history: HistoryService) {
     translate.setDefaultLang('en');
     try {
       translate.use(navigator.language.split('-')[0]);
@@ -105,20 +106,12 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
     switch (event.code) {
       case 'Backspace': {
         this.sharedData.message = this.sharedData.message.slice(0, -1);
-        this.history.pop()
         this.history.push(this.sharedData.message)
-        this.currentHistoryIndex = 1;
         break;
       }
       case 'Enter': {
         if (this.sharedData.message != '') {
-          if (this.currentHistoryIndex != 1) {
-            this.currentHistoryIndex = 1;
-            this.history.pop()
-            this.history.push(this.sharedData.message);
-          }
-          this.history.push('');
-        }
+          this.history.enter(this.sharedData.message)}
         this.onEnter(this.sharedData.message);
         break;
       }
@@ -127,38 +120,18 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
         let bestMatch = this.autocompleteService.findBestMatch(this.sharedData.message, this.commands);
         if (bestMatch) {
           this.sharedData.message = bestMatch;
-          this.history.pop()
           this.history.push(this.sharedData.message)
-          this.currentHistoryIndex = 1;
         }
         break;
       }
       case 'ArrowUp': {
         event.preventDefault();
-        let nextHistoryCommand = this.history.at(-1 * this.currentHistoryIndex - 1)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex += 1;
-          console.log(this.currentHistoryIndex)
-          console.log(this.history[this.currentHistoryIndex])
-          this.sharedData.message = nextHistoryCommand;
-        }
+        this.sharedData.message = this.history.arrowUp();
         break
       }
       case 'ArrowDown': {
         event.preventDefault();
-        console.log(this.currentHistoryIndex)
-        if (this.currentHistoryIndex == 1) {
-          break;
-        }
-        let nextHistoryCommand = this.history.at(-this.currentHistoryIndex + 1)
-        console.log(-this.currentHistoryIndex)
-        console.log(this.history);
-        console.log(nextHistoryCommand)
-        if (nextHistoryCommand != undefined) {
-          this.currentHistoryIndex -= 1;
-          console.log(this.currentHistoryIndex)
-          this.sharedData.message = nextHistoryCommand;
-        }
+        this.sharedData.message = this.history.arrowDown();
         break
       }
       case 'Escape': {
@@ -167,17 +140,13 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
       }
       case 'Space': {
         this.sharedData.message += ' ';
-        this.history.pop()
         this.history.push(this.sharedData.message)
-        this.currentHistoryIndex = 1;
         break;
       }
       default: {
         if (event.code.startsWith("Key") || event.code.startsWith("Digit") || event.code === "Minus") {
           this.sharedData.message += event.key;
-          this.history.pop()
           this.history.push(this.sharedData.message)
-          this.currentHistoryIndex = 1;
         }
       }
     }
