@@ -11,8 +11,8 @@
     "parent": "#parent"
   },
   "user": {
-    "name": "Vladyslav Zinkovskyi",
-    "description": "<h2>Hello, I'm a Java developer! ☕</h2>\n\n    <p>\n        I'm honing my skills with Angular to explore the frontend \uD83C\uDD70\uFE0F,\n <br>       and actively working on various pet projects. \uD83D\uDE80\n    </p>\n\n    <p>\n        I love learning something new and never miss opportunities for self-improvement. \uD83D\uDCDA\n        <br>My hobbies include traveling \uD83C\uDF0D and, of course, programming! \uD83D\uDCBB\n    </p>",
+    "name": "user.name",
+    "description": "user.description",
     "imgPath": "assets/img/me.jpg",
     "links": [
       {
