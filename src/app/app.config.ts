@@ -1,15 +1,17 @@
 import {ApplicationConfig, importProvidersFrom} from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
+import {routes} from './app.routes';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {HttpBackend, HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 
 export function TranslateLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/',
+    '.json');
 }
+
 export const provideTranslation = () => ({
   defaultLanguage: 'en',
   loader: {
@@ -20,7 +22,7 @@ export const provideTranslation = () => ({
 });
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes) ,
+  providers: [provideRouter(routes),
     importProvidersFrom([
       HttpClientModule,
       TranslateModule.forRoot(provideTranslation())

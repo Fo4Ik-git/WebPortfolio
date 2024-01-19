@@ -7,7 +7,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,
-    '/WebPortfolio/assets/i18n/',
+    './assets/i18n/',
     '.json');
 }
 
