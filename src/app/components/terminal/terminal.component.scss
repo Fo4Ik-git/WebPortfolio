@@ -12,7 +12,7 @@
 
 
 .caret-underscore {
-  color: #ffffff;
+  color: var(--primary-color);
   animation: blink-caret 0.75s step-end infinite;
   //border-bottom: 2px solid white;
 }
@@ -28,18 +28,18 @@
 .keyboard-input {
   position: absolute;
   bottom: 0;
-  left:0;
+  left: 0;
   width: 100vw;
   padding: 20px;
   z-index: 999;
   text-align: right;
 }
 
-.keyboard-input p-button{
+.keyboard-input p-button {
   right: 0;
 }
 
-.keyboard-input input{
+.keyboard-input input {
   background-color: var(--header-background-color);
   color: var(--font-color);
 }
@@ -50,14 +50,14 @@
     border-color: var(--primary-color) !important;
   }
 
-  .p-button:focus, ::ng-deep .p-button:enabled:focus{
-    box-shadow:none;
-    -webkit-box-shadow:none;
-    -moz-box-shadow:none;
+  .p-button:focus, ::ng-deep .p-button:enabled:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
   }
 }
 
-.keyboard-input p-inputGroup{
+.keyboard-input p-inputGroup {
   width: 100% !important;
 }
 

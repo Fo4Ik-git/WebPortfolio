@@ -6,5 +6,13 @@
   {
     "command": "clear",
     "description": "clear.description"
+  },
+  {
+    "command": "change-theme",
+    "description": "change-theme.description"
+  },
+  {
+    "command": "about-me",
+    "description": "about-me.description"
   }
 ]

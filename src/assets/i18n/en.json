@@ -1,6 +1,7 @@
 {
-  "hello": "Hello",
-  "help.description": "Help Description",
-  "clear.description": "Clear Description",
-  "user.name": "User Name"
+  "help.description": "Print all commands",
+  "clear.description": "Clear console",
+  "change-theme.description": "Change theme",
+  "about-me.description": "Display information about me",
+  "user.name": "Vladyslav Zinkovskyi"
 }
