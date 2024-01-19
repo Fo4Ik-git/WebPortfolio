@@ -1,9 +1,9 @@
 {
   "global": {
-    "site_name": "medovyha.me"
+    "site_name": "zinkovskyi.me"
   },
   "terminal": {
-    "username": "medovyha.me",
+    "username": "zinkovskyi.me",
     "symbol": ":$",
     "cursor": "|"
   },
@@ -17,22 +17,12 @@
     "links": [
       {
         "name": "GitHub",
-        "url": "https://github.com/Medovyha",
+        "url": "https://github.com/Fo4Ik-git",
         "icon": "pi pi-github"
       },
       {
         "name": "LinkedIn",
-        "url": "https://www.linkedin.com/in/maksym-donchyk-b6674b216/",
-        "icon": "pi pi-linkedin"
-      },
-      {
-        "name": "GitHub",
-        "url": "https://github.com/Medovyha",
-        "icon": "pi pi-github"
-      },
-      {
-        "name": "LinkedIn",
-        "url": "https://www.linkedin.com/in/maksym-donchyk-b6674b216/",
+        "url": "https://www.linkedin.com/in/vladyslav-zinkovskyi",
         "icon": "pi pi-linkedin"
       }
     ]
