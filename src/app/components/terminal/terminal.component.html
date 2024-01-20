@@ -19,7 +19,7 @@
       <button type="button" pButton label="Enter" (click)="onEnter(mobileMessage)"></button>
     </p-inputGroup>
   </div>
-  <div class="bottom" id="bottom">
+  <div class="bottom" id="bottom" *ngIf="!isKeyboardOpen">
     <br>
   </div>
 </div>

@@ -96,8 +96,14 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
 
   checkAndSetScroll() {
-    let terminalInput = this.el.nativeElement.querySelector('#bottom');
-    terminalInput.scrollIntoView({block: "end"});
+    /*let terminalInput = this.el.nativeElement.querySelector('#bottom');
+    terminalInput.scrollIntoView({block: "end"});*/
+    if (this.isMobile || this.isTablet) {
+      window.scrollTo(0, document.body.scrollHeight);
+    } else {
+      let terminalInput = this.el.nativeElement.querySelector('#bottom');
+      terminalInput.scrollIntoView({block: "end"});
+    }
   }
 
   @HostListener('document:keydown', ['$event'])

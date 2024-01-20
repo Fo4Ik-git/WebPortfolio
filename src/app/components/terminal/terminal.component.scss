@@ -26,13 +26,14 @@
 }
 
 .keyboard-input {
-  position: fixed;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100vw;
   padding: 20px;
-  z-index: 999;
+  //z-index: 999;
   text-align: right;
+
 }
 
 .keyboard-input p-button {
@@ -61,11 +62,10 @@
   width: 100% !important;
 }
 
-/*@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .keyboard-input {
-    padding: 10px;
   }
-}*/
+}
 
 @keyframes blink-caret {
   0%, 100% {
