@@ -16,7 +16,7 @@ import {ButtonModule} from "primeng/button";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputTextModule} from "primeng/inputtext";
 import {DeviceDetectorService} from "ngx-device-detector";
-import {NgIf} from "@angular/common";
+import {NgIf, NgStyle} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
 import {TranslateService} from "@ngx-translate/core";
 import {AutocompleteService} from "../../services/autocomplete.service";
@@ -33,14 +33,14 @@ import {HistoryService} from "../../services/history.service";
     InputGroupModule,
     InputTextModule,
     NgIf,
-    HeaderComponent
+    HeaderComponent,
+    NgStyle
   ],
   templateUrl: './terminal.component.html',
   styleUrl: './terminal.component.scss'
 })
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
-  mobileMessage: string = '';
   settings: any = (settings as any).default;
   commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
   name = this.settings.terminal.username;
@@ -96,8 +96,15 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
 
 
   checkAndSetScroll() {
-    let terminalInput = this.el.nativeElement.querySelector('#bottom');
-    terminalInput.scrollIntoView({block: "end"});
+    /*let terminalInput = this.el.nativeElement.querySelector('#bottom');
+    terminalInput.scrollIntoView({block: "end"});*/
+    if (this.isMobile || this.isTablet) {
+      let terminalInput = this.el.nativeElement.querySelector('#keyboard-input');
+      terminalInput.scrollIntoView({block: "end"});
+    } else {
+      let terminalInput = this.el.nativeElement.querySelector('#bottom');
+      terminalInput.scrollIntoView({block: "end"});
+    }
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -111,7 +118,8 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
       }
       case 'Enter': {
         if (this.sharedData.message != '') {
-          this.history.enter(this.sharedData.message)}
+          this.history.enter(this.sharedData.message)
+        }
         this.onEnter(this.sharedData.message);
         break;
       }
@@ -159,7 +167,6 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
     this.logic.onEnterKey(message, this.renderer, this.el, this.viewRef);
 
     this.sharedData.message = '';
-    this.mobileMessage = '';
   }
 
 

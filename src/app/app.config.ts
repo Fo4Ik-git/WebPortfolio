@@ -8,7 +8,8 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
 
 export function TranslateLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/',
+    '.json');
 }
 export const provideTranslation = () => ({
   defaultLanguage: 'en',
