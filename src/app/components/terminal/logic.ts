@@ -6,6 +6,7 @@ import {HelpComponent} from "../commands/help/help.component";
 import {AboutMeComponent} from "../commands/about-me/about-me.component";
 import {TranslateService} from "@ngx-translate/core";
 import {SharedDataService} from "../../services/shared-data.service";
+import {CvComponent} from "../commands/cv/cv.component";
 
 
 export class Logic {
@@ -15,6 +16,7 @@ export class Logic {
   clear: Clear = new Clear();
   changeTheme: ChangeTheme = new ChangeTheme();
   aboutMe: AboutMeComponent = new AboutMeComponent(this.translate);
+  cv: CvComponent = new CvComponent();
 
   constructor(private translate: TranslateService, private sharedData: SharedDataService) {
     translate.setDefaultLang('en');
@@ -39,6 +41,10 @@ export class Logic {
       }
       case 'about-me': {
         this.aboutMe.addDivToInputGroup(viewRef, renderer, el)
+        break
+      }
+      case 'cv':{
+        this.cv.addDivToInputGroup(viewRef, renderer, el)
         break
       }
       default: {

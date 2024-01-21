@@ -3,6 +3,8 @@
   "clear.description": "Clear console",
   "change-theme.description": "Change theme",
   "about-me.description": "Display information about me",
-  "user.name": "Vladyslav Zinkovskyi",
-  "user.description": "<h2>Hello, I'm a Java developer! ☕</h2>\n\n    <p>\n        I'm honing my skills with Angular to explore the frontend \uD83C\uDD70\uFE0F,\n <br>       and actively working on various pet projects. \uD83D\uDE80\n    </p>\n\n    <p>\n        I love learning something new and never miss opportunities for self-improvement. \uD83D\uDCDA\n        <br>My hobbies include traveling \uD83C\uDF0D and, of course, programming! \uD83D\uDCBB\n    </p>"
+  "cv.description": "Display my CV",
+  "user.name": "Donchyk Maksym",
+  "user.description": "<p>IT student mastering \uD83D\uDC0DPython, ☕Java, C/C++, SQL and frontend</p><p>Skilled in Scrum, Git, Bash, and PowerShell\uD83D\uDC68\u200D\uD83D\uDCBB.</p><p>Experience in Scrum \uD83D\uDC68\u200D\uD83D\uDCBCproject management and cloud platforms.</p><p>Enthusiastic learner\uD83D\uDCD6 ready to contribute to dynamic software development\uD83D\uDCBB.</p>"
 }
+

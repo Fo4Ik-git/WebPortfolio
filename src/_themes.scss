@@ -8,6 +8,9 @@
 
   --font-family: "Ubuntu Mono", monospace;
   --font-color: #000000;
+
+  --photo-src: url("/assets/img/cv-light.png");
+
 }
 
 [data-theme="dark"] {
@@ -20,4 +23,6 @@
 
   --font-family: "Ubuntu Mono", monospace;
   --font-color: #ffffff;
+
+  --photo-src: url("/assets/img/cv-dark.png");
 }
