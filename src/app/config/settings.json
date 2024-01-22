@@ -14,6 +14,8 @@
     "name": "user.name",
     "description": "user.description",
     "imgPath": "/assets/img/me.jpg",
+    "cvDarkPath": "/assets/img/cv-dark.png",
+    "cvLightPath": "/assets/img/cv-light.png",
     "links": [
       {
         "name": "GitHub",

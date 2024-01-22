@@ -1,8 +1,11 @@
-import {ElementRef, Renderer2} from "@angular/core";
+import {ElementRef, Inject, Renderer2} from "@angular/core";
 import * as jsonData from "../../config/settings.json";
 import {TerminalComponent} from "../terminal/terminal.component";
+import {SharedDataService} from "../../services/shared-data.service";
 
 export class ChangeTheme {
+  constructor(private sharedData: SharedDataService) {
+  }
 
   settings: any = (jsonData as any).default;
 
@@ -20,7 +23,7 @@ export class ChangeTheme {
 
   onThemeSwitchChange() {
     TerminalComponent.isLightTheme = !TerminalComponent.isLightTheme;
-
+    this.sharedData.cvPath=TerminalComponent.isLightTheme ? this.settings.user.cvLightPath : this.settings.user.cvDarkPath
     document.body.setAttribute(
       'data-theme',
       TerminalComponent.isLightTheme ? 'light' : 'dark'

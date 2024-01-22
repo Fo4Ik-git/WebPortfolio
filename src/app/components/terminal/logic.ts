@@ -9,14 +9,15 @@ import {SharedDataService} from "../../services/shared-data.service";
 import {CvComponent} from "../commands/cv/cv.component";
 
 
+
 export class Logic {
 
   help: HelpComponent = new HelpComponent(this.translate, this.sharedData);
   error: Error = new Error();
   clear: Clear = new Clear();
-  changeTheme: ChangeTheme = new ChangeTheme();
+  changeTheme: ChangeTheme = new ChangeTheme(this.sharedData);
   aboutMe: AboutMeComponent = new AboutMeComponent(this.translate);
-  cv: CvComponent = new CvComponent();
+  cv: CvComponent = new CvComponent(this.sharedData);
 
   constructor(private translate: TranslateService, private sharedData: SharedDataService) {
     translate.setDefaultLang('en');
