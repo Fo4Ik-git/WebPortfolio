@@ -11,12 +11,13 @@
   </div>
 
   <div class="keyboard-input" *ngIf="isMobile || isTablet ">
-    <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" *ngIf="!isKeyboardOpen"
+
+    <p-button icon="pi pi-pencil" [rounded]="true" *ngIf="!isKeyboardOpen"
               (onClick)="isKeyboardOpen=!isKeyboardOpen"></p-button>
 
-    <p-inputGroup *ngIf="isKeyboardOpen">
-      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="mobileMessage"/>
-      <button type="button" pButton label="Enter" (click)="onEnter(mobileMessage)"></button>
+    <p-inputGroup *ngIf="isKeyboardOpen" id="keyboard-input">
+      <input type="text" pInputText placeholder="Enter Command" autofocus [(ngModel)]="sharedData.message"/>
+      <button type="button" class="keyboard-enter" pButton label="Enter" (click)="onEnter(sharedData.message)"></button>
     </p-inputGroup>
   </div>
   <div class="bottom" id="bottom" *ngIf="!isKeyboardOpen">

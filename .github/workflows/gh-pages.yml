@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.9.0'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular project and deploy to GitHub Pages
+        run: |
+          ng build --base-href /WebPortfolio/
+          mv dist/WebPortfolio/* docs/
+          git config --global user.email "zinkovskyi.vladyslav@gmail.com"
+          git config --global user.name "Vlad Fo4Ik"
+          git add docs
+          git commit -m "Update GitHub Pages"
+          git push origin gh-pages
