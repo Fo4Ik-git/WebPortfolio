@@ -30,7 +30,7 @@ jobs:
       - name: Build Angular project and deploy to GitHub Pages
         run: |
           ng build --base-href /WebPortfolio/
-          mv dist/WebPortfolio/* docs/
+          mv docs/WebPortfolio/* docs/
           git config --global user.email "zinkovskyi.vladyslav@gmail.com"
           git config --global user.name "Vlad Fo4Ik"
           git add docs
