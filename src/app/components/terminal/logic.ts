@@ -8,6 +8,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {SharedDataService} from "../../services/shared-data.service";
 import {CvComponent} from "../commands/cv/cv.component";
 import {GhProjectsComponent} from "../commands/gh-projects/gh-projects.component";
+import {ChangeLanguageComponent} from "../commands/change-language/change-language.component";
+import {HttpClient} from "@angular/common/http";
 
 
 export class Logic {
@@ -19,14 +21,16 @@ export class Logic {
   aboutMe: AboutMeComponent = new AboutMeComponent(this.translate);
   cv: CvComponent = new CvComponent(this.sharedData);
   ghProjects: GhProjectsComponent = new GhProjectsComponent();
+  changeLanguage: ChangeLanguageComponent = new ChangeLanguageComponent(this.http);
 
-  constructor(private translate: TranslateService, private sharedData: SharedDataService) {
+  constructor(private translate: TranslateService, private sharedData: SharedDataService, private http: HttpClient) {
     translate.setDefaultLang('en');
   }
 
   onEnterKey(message: string, renderer: Renderer2, el: ElementRef, viewRef: ViewContainerRef) {
 
-    let command = message.toLowerCase();
+    let input = message.split(' ');
+    let command = input[0].toLowerCase();
 
     switch (command) {
       case 'help': {
@@ -52,6 +56,10 @@ export class Logic {
       case 'projects': {
         this.ghProjects.addDivToInputGroup(viewRef, renderer, el)
         break
+      }
+      case 'change-language': {
+        this.changeLanguage.hub(input, this.translate, renderer, el);
+        break;
       }
       default: {
         this.error.addDivToInputGroup(message, renderer, el);

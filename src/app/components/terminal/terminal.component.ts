@@ -22,6 +22,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {AutocompleteService} from "../../services/autocomplete.service";
 import {SharedDataService} from "../../services/shared-data.service";
 import {HistoryService} from "../../services/history.service";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -44,7 +45,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
   settings: any = (settings as any).default;
   commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
   name = this.settings.terminal.username;
-  logic: Logic = new Logic(this.translate, this.sharedData);
+  logic: Logic = new Logic(this.translate, this.sharedData, this.http);
 
   isKeyboardOpen: boolean = false;
   isMobile!: boolean;
@@ -76,16 +77,18 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
               private deviceService: DeviceDetectorService,
               private translate: TranslateService,
               private el: ElementRef,
+              private http: HttpClient,
               public sharedData: SharedDataService,
               private autocompleteService: AutocompleteService,
               private viewRef: ViewContainerRef,
               private history: HistoryService) {
-    translate.setDefaultLang('en');
     try {
-      translate.use(navigator.language.split('-')[0]);
+      translate.setDefaultLang(navigator.language.split('-')[0]);
     } catch (e) {
-      translate.use('en');
+      translate.setDefaultLang('en');
     }
+
+    translate.addLangs(['en','uk']);
   }
 
 
