@@ -27,6 +27,20 @@
         "url": "https://www.linkedin.com/in/vladyslav-zinkovskyi",
         "icon": "pi pi-linkedin"
       }
+    ],
+    "repositories": [
+      {
+        "name": "WebPortfolio",
+        "owner": "Fo4Ik-git"
+      },
+      {
+        "name": "JavaCourseLearn",
+        "owner": "Fo4Ik-git"
+      },
+      {
+        "name": "KinAcademy",
+        "owner": "Fo4Ik-git"
+      }
     ]
   }
 }

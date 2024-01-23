@@ -1,1 +1,4 @@
-<img [src]="sharedData.cvPath" alt="cv" class="img-fluid ">
+<div [ngClass]="isFullScreen ? 'div-fullscreen' : ''">
+  <img [src]="sharedData.cvPath" alt="cv" (click)="toggleFullScreen()"
+       [ngClass]="isFullScreen ? 'fullscreen' : 'img-fluid'">
+</div>

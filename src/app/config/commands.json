@@ -14,5 +14,9 @@
   {
     "command": "about-me",
     "description": "about-me.description"
+  },
+  {
+    "command": "projects",
+    "description": "projects.description"
   }
 ]

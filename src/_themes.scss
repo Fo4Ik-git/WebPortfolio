@@ -8,6 +8,8 @@
 
   --font-family: "Ubuntu Mono", monospace;
   --font-color: #000000;
+
+  --filter: invert(0)
 }
 
 [data-theme="dark"] {
@@ -20,4 +22,6 @@
 
   --font-family: "Ubuntu Mono", monospace;
   --font-color: #ffffff;
+
+  --filter: invert(1)
 }
