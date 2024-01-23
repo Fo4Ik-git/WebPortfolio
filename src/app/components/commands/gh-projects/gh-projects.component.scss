@@ -11,6 +11,10 @@
   max-width: calc(100vw - 5rem);
 }
 
+svg{
+  width: 1rem;
+  filter: var(--filter);
+}
 section {
   width: calc(100vw - 5rem);
 }
