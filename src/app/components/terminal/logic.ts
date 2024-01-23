@@ -7,6 +7,7 @@ import {AboutMeComponent} from "../commands/about-me/about-me.component";
 import {TranslateService} from "@ngx-translate/core";
 import {SharedDataService} from "../../services/shared-data.service";
 import {CvComponent} from "../commands/cv/cv.component";
+import {GhProjectsComponent} from "../commands/gh-projects/gh-projects.component";
 
 
 
@@ -18,6 +19,7 @@ export class Logic {
   changeTheme: ChangeTheme = new ChangeTheme(this.sharedData);
   aboutMe: AboutMeComponent = new AboutMeComponent(this.translate);
   cv: CvComponent = new CvComponent(this.sharedData);
+  ghProjects: GhProjectsComponent = new GhProjectsComponent();
 
   constructor(private translate: TranslateService, private sharedData: SharedDataService) {
     translate.setDefaultLang('en');
@@ -46,6 +48,10 @@ export class Logic {
       }
       case 'cv':{
         this.cv.addDivToInputGroup(viewRef, renderer, el)
+        break
+      }
+      case 'projects':{
+        this.ghProjects.addDivToInputGroup(viewRef, renderer, el)
         break
       }
       default: {
