@@ -13,9 +13,9 @@
   "user": {
     "name": "user.name",
     "description": "user.description",
-    "imgPath": "/assets/img/me.jpg",
-    "cvDarkPath": "/assets/img/cv-dark.png",
-    "cvLightPath": "/assets/img/cv-light.png",
+    "imgPath": "assets/img/me.jpg",
+    "cvDarkPath": "assets/img/cv-dark.png",
+    "cvLightPath": "assets/img/cv-light.png",
     "links": [
       {
         "name": "GitHub",
@@ -26,6 +26,28 @@
         "name": "LinkedIn",
         "url": "https://www.linkedin.com/in/maksym-donchyk-b6674b216/",
         "icon": "pi pi-linkedin"
+      }
+    ],
+    "repositories": [
+      {
+        "name": "TerminalPortfolio",
+        "owner": "Medovyha"
+      },
+      {
+        "name": "TerminalPortfolio",
+        "owner": "Medovyha"
+      },
+      {
+        "name": "TerminalPortfolio",
+        "owner": "Medovyha"
+      },
+      {
+        "name": "TerminalPortfolio",
+        "owner": "Medovyha"
+      },
+      {
+        "name": "TerminalPortfolio",
+        "owner": "Medovyha"
       }
     ]
   }
