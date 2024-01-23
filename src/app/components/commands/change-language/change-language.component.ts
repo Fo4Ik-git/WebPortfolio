@@ -39,18 +39,19 @@ export class ChangeLanguageComponent {
     if (command === 'help') {
       this.addDivToInputGroup(this.helpMessage, renderer, el);
       return;
-    }
-    if (command === 'list') {
+    } else if (command === 'list') {
       //TODO do it prettier
       this.addDivToInputGroup(translate.getLangs().toString(), renderer, el);
       return;
-    }
-    try {
-      translate.setDefaultLang(command);
-      this.addDivToInputGroup(languageChanged, renderer, el);
-    } catch (e) {
+    } else if (translate.getLangs().indexOf(command) === -1) {
       this.addDivToInputGroup(unknownCommand, renderer, el);
-      return;
+    } else {
+      try {
+        translate.setDefaultLang(command);
+        this.addDivToInputGroup(languageChanged, renderer, el);
+      } catch (e) {
+        return;
+      }
     }
 
 
