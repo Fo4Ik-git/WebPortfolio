@@ -10,7 +10,6 @@ import {CvComponent} from "../commands/cv/cv.component";
 import {GhProjectsComponent} from "../commands/gh-projects/gh-projects.component";
 
 
-
 export class Logic {
 
   help: HelpComponent = new HelpComponent(this.translate, this.sharedData);
@@ -46,11 +45,11 @@ export class Logic {
         this.aboutMe.addDivToInputGroup(viewRef, renderer, el)
         break
       }
-      case 'cv':{
+      case 'cv': {
         this.cv.addDivToInputGroup(viewRef, renderer, el)
         break
       }
-      case 'projects':{
+      case 'projects': {
         this.ghProjects.addDivToInputGroup(viewRef, renderer, el)
         break
       }
