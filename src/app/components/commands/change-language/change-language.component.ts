@@ -26,15 +26,16 @@ export class ChangeLanguageComponent {
   hub(attributes: string[], translate: TranslateService,
       renderer: Renderer2, el: ElementRef) {
     attributes.shift();
-    const command = attributes[0].toLowerCase();
 
     let unknownCommand = `Unknown command' <span style="color: var(--error-color);">${attributes[0]}</span>' use 'help' for more information`;
     let languageChanged = `Language changed to <span">${attributes[0]}</span>`;
 
-    if (command === '') {
+    if (attributes[0] === '') {
       this.addDivToInputGroup(unknownCommand, renderer, el);
       return;
     }
+
+    const command = attributes[0].toLowerCase();
 
     if (command === 'help') {
       this.addDivToInputGroup(this.helpMessage, renderer, el);
