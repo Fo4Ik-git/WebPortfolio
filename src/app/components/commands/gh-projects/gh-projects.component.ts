@@ -16,19 +16,21 @@ export class GhProjectsComponent {
   repositoryInfo: any;
   githubService: GithubApiService = inject(GithubApiService)
   data: any = [];
+
   constructor() {
     let repoData;
-    for(repoData of this.settings.user.repositories)
+    for (repoData of this.settings.user.repositories)
       this.getRepoInfo(repoData).subscribe(
         (data) => {
-          console.log(data)
-          this.data.push(data);},
+          this.data.push(data);
+        },
         (error) => {
           console.error('Error fetching repository info:', error);
         }
       );
   }
-  getRepoInfo(repoInfo:any): Observable<any> {
+
+  getRepoInfo(repoInfo: any): Observable<any> {
     let data = this.githubService.getRepositoryInfo(repoInfo.owner, repoInfo.name);
 
     return data;
