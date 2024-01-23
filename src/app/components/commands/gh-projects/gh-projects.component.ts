@@ -22,8 +22,12 @@ export class GhProjectsComponent {
     for (repoData of this.settings.user.repositories)
       this.getRepoInfo(repoData).subscribe(
         (data) => {
+<<<<<<< HEAD
           this.data.push(data);
         },
+=======
+          this.data.push(data);},
+>>>>>>> main
         (error) => {
           console.error('Error fetching repository info:', error);
         }

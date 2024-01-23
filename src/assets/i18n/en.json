@@ -5,6 +5,7 @@
   "about-me.description": "Display information about me",
   "cv.description": "Display my CV",
   "projects.description": "Display my projects",
+  "change-language.description": "Change language for more information add help",
   "user.name": "Vladyslav Zinkovskyi",
   "user.description": "<h2>Hello, I'm a Java developer! ☕</h2>\n\n    <p>\n        I'm honing my skills with Angular to explore the frontend \uD83C\uDD70\uFE0F,\n <br>       and actively working on various pet projects. \uD83D\uDE80\n    </p>\n\n    <p>\n        I love learning something new and never miss opportunities for self-improvement. \uD83D\uDCDA\n        <br>My hobbies include traveling \uD83C\uDF0D and, of course, programming! \uD83D\uDCBB\n    </p>"
 }

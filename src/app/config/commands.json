@@ -18,5 +18,9 @@
   {
     "command": "projects",
     "description": "projects.description"
+  },
+  {
+    "command": "change-language",
+    "description": "change-language.description"
   }
 ]
