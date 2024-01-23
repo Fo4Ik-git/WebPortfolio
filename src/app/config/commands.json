@@ -18,5 +18,9 @@
   {
     "command": "cv",
     "description": "cv.description"
+  },
+  {
+    "command": "projects",
+    description: "projects.description"
   }
 ]
