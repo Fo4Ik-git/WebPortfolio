@@ -15,6 +15,8 @@ interface Argument {
   providedIn: 'root',
 })
 export class AutocompleteService {
+
+  private currentMatchIndex: number = 0;
   findBestMatch(partialCommand: string, availableCommands: { command: string }[]): string | null {
     if (!partialCommand || partialCommand.trim() === '') {
       return null; // If the partial command is empty, return null
@@ -55,6 +57,58 @@ export class AutocompleteService {
     }
 
     return first.substring(0, i);
+  }
+
+  findCommandArgument(partialCommand: string,
+                      argumentCommands: string,
+                      availableCommands: {
+                        command: string;
+                        arguments?: any[]
+                      }[]): string | null {
+    if (!partialCommand || partialCommand.trim() === '') {
+      return null; // If the partial command is empty, return null
+    }
+
+    availableCommands = availableCommands
+      .filter(command => command.arguments && command.arguments.length > 0) // Оставляем только команды с аргументами
+      .map(command => {
+
+        // Check if command has arguments before filtering
+        const filteredArguments = command.arguments?.filter(argument =>
+          command.command.toLowerCase() === partialCommand.toLowerCase()
+        ) || [];
+
+        return {
+          ...command,
+          arguments: filteredArguments
+        };
+      })
+      .filter(command => command.arguments.length > 0);
+
+
+    const argumentsOnly = availableCommands
+      .filter(command => command.arguments && command.arguments.length > 0) // Оставляем только команды с аргументами
+      .map(command => command.arguments)
+      .flat();
+
+    const matches = argumentsOnly
+      .map(argument => argument.command)
+      .filter(argument =>
+        argument.toLowerCase().startsWith(argumentCommands.toLowerCase())
+      );
+
+    if (matches.length === 0) {
+      return null; // If no matches found, return null
+    }
+
+    // Sort matches by length and return the currently selected match
+    const sortedMatches = matches.sort((a, b) => a.length - b.length);
+    const selectedMatch = sortedMatches[this.currentMatchIndex];
+
+    // Add index of selected match for next call
+    this.currentMatchIndex = (this.currentMatchIndex + 1) % sortedMatches.length;
+
+    return selectedMatch;
   }
 
 
