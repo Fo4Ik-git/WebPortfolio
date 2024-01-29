@@ -43,7 +43,7 @@ import {HttpClient} from "@angular/common/http";
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
   settings: any = (settings as any).default;
-  commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
+  commands: any = (commands as any).default;
   name = this.settings.terminal.username;
   logic: Logic = new Logic(this.translate, this.sharedData, this.http);
 
