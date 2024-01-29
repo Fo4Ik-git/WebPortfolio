@@ -26,35 +26,47 @@ export class ChangeLanguageComponent {
   hub(attributes: string[], translate: TranslateService,
       renderer: Renderer2, el: ElementRef) {
     attributes.shift();
-    const command = attributes[0].toLowerCase();
 
-    let unknownCommand = `Unknown command' <span style="color: var(--error-color);">${attributes[0]}</span>' use 'help' for more information`;
+    let args;
+
+    try {
+      args = attributes[0].trim();
+    } catch (e) {
+      args = 'null';
+    }
+
+    let unknownCommand = `Unknown command '<span style="color: var(--error-color);">${args}</span>' use 'help' for more information`;
     let languageChanged = `Language changed to <span">${attributes[0]}</span>`;
 
-    if (command === '') {
+    if (args === 'null') {
       this.addDivToInputGroup(unknownCommand, renderer, el);
       return;
     }
 
-    if (command === 'help') {
-      this.addDivToInputGroup(this.helpMessage, renderer, el);
-      return;
-    } else if (command === 'list') {
-      //TODO do it prettier
-      this.addDivToInputGroup(translate.getLangs().toString(), renderer, el);
-      return;
-    } else if (translate.getLangs().indexOf(command) === -1) {
-      this.addDivToInputGroup(unknownCommand, renderer, el);
-    } else {
-      try {
-        translate.setDefaultLang(command);
-        this.addDivToInputGroup(languageChanged, renderer, el);
-      } catch (e) {
+    const command = attributes[0].toLowerCase();
+    switch (command) {
+      case 'help': {
+        this.addDivToInputGroup(this.helpMessage, renderer, el);
         return;
       }
+      case 'list': {
+        //TODO do it prettier
+        this.addDivToInputGroup(translate.getLangs().toString(), renderer, el);
+        return;
+      }
+      default: {
+        if (translate.getLangs().indexOf(command) === -1) {
+          this.addDivToInputGroup(unknownCommand, renderer, el);
+        } else {
+          try {
+            translate.setDefaultLang(command);
+            this.addDivToInputGroup(languageChanged, renderer, el);
+          } catch (e) {
+            return;
+          }
+        }
+      }
     }
-
-
   }
 
   addDivToInputGroup(message: string, renderer: Renderer2, el: ElementRef) {

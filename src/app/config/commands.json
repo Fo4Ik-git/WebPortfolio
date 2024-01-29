@@ -21,6 +21,16 @@
   },
   {
     "command": "change-language",
-    "description": "change-language.description"
+    "description": "change-language.description",
+    "arguments": [
+      {
+        "command": "help",
+        "description": "show all available arguments"
+      },
+      {
+        "command": "list",
+        "description": "show all available languages"
+      }
+    ]
   }
 ]
