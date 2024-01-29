@@ -43,7 +43,7 @@ import {HttpClient} from "@angular/common/http";
 export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewInit {
   public static isLightTheme = false;
   settings: any = (settings as any).default;
-  commands: any = (commands as any).default.map((commandObject: { command: any; }) => commandObject.command);
+  commands: any = (commands as any).default;
   name = this.settings.terminal.username;
   logic: Logic = new Logic(this.translate, this.sharedData, this.http);
 
@@ -88,7 +88,7 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
       translate.setDefaultLang('en');
     }
 
-    translate.addLangs(['en','uk']);
+    translate.addLangs(['en', 'uk']);
   }
 
 
@@ -128,13 +128,31 @@ export class TerminalComponent implements OnInit, AfterViewChecked, AfterViewIni
       }
       case 'Tab': {
         event.preventDefault();
-        let bestMatch = this.autocompleteService.findBestMatch(this.sharedData.message, this.commands);
-        if (bestMatch) {
-          this.sharedData.message = bestMatch;
-          this.history.push(this.sharedData.message)
+
+        const parts = this.sharedData.message.split(' ');
+
+        if (parts.length === 1) {
+          // Если только одна часть, то это команда, пытаемся найти подходящую команду
+          const bestMatch = this.autocompleteService.findBestMatch(parts[0], this.commands);
+
+          if (bestMatch) {
+            this.sharedData.message = bestMatch;
+            this.history.push(this.sharedData.message);
+          }
+        } else if (parts.length >= 2) {
+          let args: string = parts.slice(1).join(' ');
+          const bestArgument = this.autocompleteService.findCommandArgument(parts[0], args, this.commands);
+
+
+          if (bestArgument) {
+            this.sharedData.message = parts[0] + ' ' + bestArgument;
+            this.history.push(this.sharedData.message);
+          }
         }
         break;
       }
+
+
       case 'ArrowUp': {
         event.preventDefault();
         this.sharedData.message = this.history.arrowUp();
