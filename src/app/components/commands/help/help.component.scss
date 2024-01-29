@@ -3,10 +3,16 @@
   border: 2px solid transparent;
   border-radius: 5px;
   padding: .1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .command:hover {
   border: 2px solid var(--primary-color);
   padding: .1rem;
   border-radius: 5px;
+}
+
+.help {
+  max-width: 100svw;
 }
