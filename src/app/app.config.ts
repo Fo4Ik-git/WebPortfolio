@@ -5,29 +5,31 @@ import {routes} from './app.routes';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 
 export function TranslateLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/',
-    '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/',
+        '.json');
 }
 
 export const provideTranslation = () => ({
-  defaultLanguage: 'en',
-  loader: {
-    provide: TranslateLoader,
-    useFactory: TranslateLoaderFactory,
-    deps: [HttpClient],
-  },
+    defaultLanguage: 'en',
+    loader: {
+        provide: TranslateLoader,
+        useFactory: TranslateLoaderFactory,
+        deps: [HttpClient],
+    },
 });
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
-    importProvidersFrom([
-      HttpClientModule,
-      TranslateModule.forRoot(provideTranslation())
-    ])
-  ]
+    providers: [provideRouter(routes),
+        importProvidersFrom([
+            HttpClientModule,
+            TranslateModule.forRoot(provideTranslation())
+        ]),
+        provideAnimationsAsync()
+    ]
 };
 
 
