@@ -34,6 +34,14 @@
       {
         "command": "list",
         "description": "show all available languages"
+      },
+      {
+        "command": "en",
+        "description": "change language to English"
+      },
+      {
+        "command": "uk",
+        "description": "change language to Ukrainian"
       }
     ]
   }

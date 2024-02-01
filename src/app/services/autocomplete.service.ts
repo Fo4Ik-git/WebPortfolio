@@ -1,16 +1,5 @@
 import {Injectable} from '@angular/core';
 
-interface Command {
-  command: string;
-  description: string;
-  arguments?: Argument[];
-}
-
-interface Argument {
-  command: string;
-  description: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
